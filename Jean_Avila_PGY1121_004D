@@ -1,0 +1,78 @@
+from datetime import datetime
+import numpy as np
+
+lista_asientos = {i for i in range(1,101)}
+lista_asientos_comprados = {}
+cant=0
+ganancia_total=0
+
+def compra_entradas():
+  while True :
+    try:
+      cant=int(input("Ingrese la cantidad de entradas que desea"))
+      if cant<1 or cant>3:
+        print("Solo se permite un maximo de 3 entradas")
+      else :
+        return(cant)
+    except ValueError:
+      print("Error, intetelo de nuevo")
+
+def aignar_asientos(a):
+  while a!=0:
+    try:
+      print(lista_asientos)
+      asientos=int(input("Eliga los asientos que desee"))
+      if asientos in lista_asientos:
+        a-=1
+        rut=int(input("Ingrese el rut"))
+        lista_x={asientos,rut}
+        lista_asientos_comprados.append(lista_x)
+        lista_asientos.pop(asientos-1)
+        lista_asientos.insert(asientos-1,"x")
+      elif asientos not in lista_asientos:
+        print("Asienton no disponible")
+    except ValueError:
+      print("Error...")
+  return (lista_asientos, lista_asientos)
+
+def ganancias_totales():
+  platinum=0
+  gold=0
+  silver=0
+  for i in lista_asientos_comprados:
+    a =i[0]
+    if a in range(1, 20):
+      vip +=120000
+    elif a in range(21, 50):
+      gold +=80000
+    elif a in range(51, 100):
+      silver +=50000
+  print(f"Las ganancias son {platinum+gold+silver}")
+
+while True:
+  print("*** Bienvenido al concierto de Michael Jam***")
+  print("***1. Comprar entradas***")
+  print("***2. Mostrar ubicaciones disponibles***")  
+  print("***3. ver listado de asistentes ***")
+  print("***4: Mostrar ganancias totales***")
+  print("***5. Salir***")
+  try:
+    opc=int(input("Seleccione una opcion"))
+    if opc==1:
+      asignar_asiento(compra_entradas())
+    elif opc==2:
+      print(lista_asientos)
+    elif opc==3:
+      for f in range(1, 100):
+       for i in lista_asientos_comprados:
+        if i[0]==f :
+          print(i[1])
+    elif opc==4:
+      ganancias_totales()
+    elif opc==5:
+      break
+  except ValueError:
+    print("Se ha equivocadoo")
+
+fecha = datetime.now().date()
+print("Adios, esperamos verlo en el concierto", fecha)
